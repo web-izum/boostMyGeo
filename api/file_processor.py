@@ -6,7 +6,7 @@ import os
 import pandas as pd
 from typing import Tuple
 from urllib.parse import urlparse
-from config import MAX_ROWS_PROCESS
+from api.config import MAX_ROWS_PROCESS
 
 class FileProcessor:
     """Класс для обработки загруженных файлов"""

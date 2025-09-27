@@ -4,7 +4,7 @@
 
 from typing import Dict, List, Any, Optional
 from openai import OpenAI
-from config import OPENAI_API_KEY, OPENAI_MODEL, OPENAI_TIMEOUT
+from api.config import OPENAI_API_KEY, OPENAI_MODEL, OPENAI_TIMEOUT
 
 class OpenAIClient:
     """Клиент для OpenAI Responses API"""

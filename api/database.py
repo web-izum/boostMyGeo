@@ -6,7 +6,7 @@ import os
 import sqlite3
 from datetime import datetime
 from typing import Optional, Tuple
-from config import REGISTRY_PATH
+from api.config import REGISTRY_PATH
 
 class Database:
     """Класс для работы с SQLite базой данных"""

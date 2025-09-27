@@ -15,12 +15,12 @@ from fastapi.responses import JSONResponse, StreamingResponse, HTMLResponse
 from starlette.middleware.cors import CORSMiddleware
 
 # Импорт наших модулей
-from config import EMAIL_REGEX, MAX_UPLOAD_MB, ALLOW_RETRY_SAME_FILE, validate_config
-from database import db
-from file_processor import FileProcessor
-from openai_client import openai_client
-from metrics import MetricsCalculator
-from email_service import email_service
+from api.config import EMAIL_REGEX, MAX_UPLOAD_MB, ALLOW_RETRY_SAME_FILE, validate_config
+from api.database import db
+from api.file_processor import FileProcessor
+from api.openai_client import openai_client
+from api.metrics import MetricsCalculator
+from api.email_service import email_service
 
 # Создание FastAPI приложения
 app = FastAPI(
@@ -38,7 +38,7 @@ app.add_middleware(
 )
 
 # HTML лендинг страницы встроенный в код
-LANDING_HTML = """<!DOCTYPE html>
+LANDING_HTML = r"""<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
