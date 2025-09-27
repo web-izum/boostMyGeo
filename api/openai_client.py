@@ -10,12 +10,25 @@ class OpenAIClient:
     """Клиент для OpenAI Responses API"""
     
     def __init__(self):
+        self.client = None
+        self.model = OPENAI_MODEL
+        self.timeout = OPENAI_TIMEOUT
+    
+    def _ensure_client(self):
+        """Ленивая инициализация клиента при первом использовании"""
+        if self.client is not None:
+            return
+            
         if not OPENAI_API_KEY:
             raise ValueError("OPENAI_API_KEY не установлен")
         
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
-        self.model = OPENAI_MODEL
-        self.timeout = OPENAI_TIMEOUT
+        try:
+            self.client = OpenAI(api_key=OPENAI_API_KEY)
+        except TypeError:
+            # Fallback для несовместимости с httpx на Vercel
+            import os
+            os.environ['HTTPX_DISABLE_PROXY'] = '1'
+            self.client = OpenAI(api_key=OPENAI_API_KEY)
     
     def search_with_web(self, query: str) -> Dict[str, Any]:
         """
@@ -27,6 +40,8 @@ class OpenAIClient:
         Returns:
             Dict с источниками, usage и query
         """
+        self._ensure_client()
+        
         try:
             response = self.client.responses.create(
                 model=self.model,
